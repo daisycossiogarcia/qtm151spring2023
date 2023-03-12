@@ -1,0 +1,414 @@
+---
+title: "Working with Data, Part 1"
+output: html_document
+---
+#### _This material is built upon your understanding of the Introduction to R tutorial you completed on DataCamp. You may also use this rmd file as a template for your future assignments that need to be completed using an rmd file._
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Importing data and saving data
+```{r, results='hide'}
+# Always save datasets and rmd files in your working directory!
+getwd() # be sure to check your own working directory!
+gss<-read.csv("gss.csv", stringsAsFactors = TRUE)  # import dataset and assign it in gss
+dim(gss) # dataframe contains 53474 rows and 14 variables
+set.seed(1234) # generating a random number sequence
+
+#Create a small dataset by randomly sampling 100 observations from gss
+nrow(gss) #show the total number of rows in gss
+sample(nrow(gss), 100) #randomly select 100 row numbers
+gss100<-gss[sample(nrow(gss),100),] # assign 100 observations into an object called gss100
+dim(gss100) # make sure 100 observations are assigned in gss100
+?sample # learn more about how to use sample function
+```
+
+You can also create a new dataset and save it as a file into your working directory. Use the following template.   
+*write.csv(dataset, "name.csv")*  
+
+```{r}
+write.csv(gss100, "smallgss.csv") #save it in your working directory!
+```
+
+## 2. Observing data 
+```{r}
+dim(gss100) #the number of observations and variables
+names(gss100) #variable names
+str(gss100) #structure of dataset
+summary(gss100) #summary of each variable
+head(gss100)  #print the first six observations
+tail(gss100, 10) #print the last 10 observations
+is.na(gss100$income)
+sum(is.na(gss100$income)) #print a total number of missing values in the income variable
+sum(is.na(gss$income)) #print a total number of missing values in the income variable in the original dataset
+?is.na #learn more about is.na function
+```
+
+
+## 3. Extracting parts
+dataframe is a matrix, each variable (column) is a vector
+
+```{r}
+#dataset[row, column]
+gss100[1,2]
+
+# dataset[rows, columns]
+gss100[1:5, c(2,5)] 
+
+
+#dataset$variable, the whole column
+gss100[,7]
+gss100$marital
+
+# dataset$variable[rows]
+gss100$marital[1:10]
+```
+
+## 4. Basic plots: 
+
+See R reference card:   
+- one variable: histogram  
+- one categorical: barplot(categorical)  
+- two variables: scatterplot(two quant), side-by-side boxplot(quant vs cat)
+
+```{r}
+# one quantitative variable: 
+hist(gss100$age)
+mean(gss100$age)
+sd(gss100$age)
+
+# one categorical variable:
+# barplot(frequency table)
+table(gss100$marital)
+barplot(table(gss100$marital))
+
+# one quantitative vs one categorical
+boxplot(gss100$age~gss100$sex)
+
+# two quantitative variables
+# plot(x,y)
+```
+
+## 5. Vectors
+Almost everything in R is a vector.  All elements(values) of a vector must be of the same type.
+
+```{r}
+# str() can tell us 
+str(gss100)
+```
+
+
+There are four types of atomic vectors in R.
+
+### 1) NUMERIC VECTOR (integer and Double)
+
+A numeric vector is a list of numbers. Integer and double vectors are known collectively as numeric vectors. (Doubles represent floating point numbers that can not always be precisely represented with a fixed amount of memory.)
+
+The *c()* function is used to collect things together into a vector. The output is 
+
+```{r}
+c(1,2,3)
+# We can save this to a named object:
+x<-c(1:10)  # The : sybmbol used to create a sequence of increasing (or decreasing) values
+x
+y<-c(30:1)
+y
+
+
+# use the square bracket to extract the element(value)
+x[5] 
+x[c(1,3,5)]
+
+x[3:7]
+x[-c(1,3,5,7,9)]
+```
+
+
+#### *seq(), rep(), sample()*
+
+There are simple patterned numeric vectors can also be produced using the *seq()* function, the *rep()* function, and the *sample()* function.
+```{r}
+# seq(start, end, by=1)
+seq(0,100,by=5) # the sequence of numbers from 0 to 100 with the increment is 5
+
+# rep(x, times of repetition)
+rep(2,5)    # repeat the value 2, 5 times
+
+x<-c(1:5)
+rep(x,2)  # repeat x twice
+
+y<-c(10:15)
+rep(c(x,y),2)  # repeat x and y, twice
+
+# take a random sample, we can use sample() function. 
+
+# sample(vector, sample size, replace=T/F)
+
+set.seed(1234)
+sample(1:30, 5, replace=TRUE) 
+
+# randomly choose 5 numbers from 1 to 30 with replacement
+# set.seed() is used to fix the starting point to get a random sample, make sure to get the same sample when the code is executed each time
+
+```
+
+
+#### Numeric vector arithmetic
+Arithmetic can be done on R vectors. Note that the computation is performed *elementwise*.
+
+```{r, results='hide'}
+## Be sure to check all the results by doing it yourself!
+x<-c(1:5)
+x*2
+x^2
+7 %% 2  # the modular operator, the remainder of the division of 7 by 2.
+7 %/% 2 
+
+x %% 2 # odd number and even number
+
+y<-c(6:10)
+
+x+y  # the same length
+y-x 
+```
+
+The operation functions in R can be done on numeric vectors as well.
+
+```{r, results='hide'}
+## Again, be sure to check all the results by doing it yourself!
+x
+sum(x)
+mean(x)
+length(x)
+avg_x<-sum(x)/length(x)
+avg_x
+```
+
+Example 1:
+
+```{r}
+a<-c(1, 5, 6, 8, 9, 15, 20, 19, 10)
+# check odd numbers:
+sum(a%%2) # Think about how this operation gives you the correct output of the number of odd observations in this vector
+```
+
+
+### 2) CHARACTER VECTOR
+
+Vectors can be made up of strings of characters instead of numbers. 
+
+```{r}
+schoolyear<-c("Freshman","Sophomore","Junior","Senior")
+
+schoolyear
+
+x<-c(2,4, 3,1)
+ 
+# give the names to the numeric vector with the character vector
+names(x)<-schoolyear
+x
+```
+
+#### *substr() and paste()*
+
+There are two basic operations you might want to perform on character vectors. 
+
+The *substr()* funcion takes subtrings, it takes arguments 
+*substr(x, start, stop)*, where x is a vector of characters(strings), and *start* and *stop* say which chacarters to keep. 
+
+The other basis operation is building up strings by concatenation. Use the *paste()* function for this.
+
+*tolower()* and *toupper()* are functions to convert upper case and lower case.
+
+```{r}
+substr(schoolyear,1,2)
+
+
+scoolyear1<-paste(schoolyear,"Year")
+
+paste("The",schoolyear,"Year", sep=" ")
+
+tolower(schoolyear)
+```
+
+Example 2:
+```{r}
+substr(state.name, 1, 1)
+# translate all the state names to lower case
+tolower(state.name)
+```
+
+
+### 3) LOGICAL VECTOR
+
+R also supports **logical** vectors, where the values are either *TRUE* or *FALSE*. It is often necessary to test relations when programming. R allows testing of equality and inequality relations using the relational operators: 
+
+1. greater than: $>$, 
+2. less than: $<$, 
+3. equality: $==$, 
+4. inequality: $!=$, $>=$, $<=$, 
+5. matching: $ %in% $. 
+
+For example, we can ask 
+
+```{r}
+x<-c(1:5)
+x>3
+3==4
+
+schoolyear %in% "Senior"
+
+```
+
+With a logical data result, *TRUE* has an internal value of 1 and FALSE has an internal value of 0.  Summing a logical will evaluate the total number of *TRUE* results.
+
+```{r}
+sum(x>3)
+```
+
+The logical (boolean) operation is very helpful to extract subsets by *subset(logical expression)* 
+
+```{r}
+gss100subset<-gss100[gss100$year==2010,]
+head(gss100subset)
+names(gss100subset)
+
+state.name[substr(state.name,1,1)=="N"]
+schoolyear[substr(schoolyear,1,1)=="S"]
+```
+
+The logical operators are very useful to get a subset. 
+```{r}
+# subset(data/vector, logical expression)
+```
+
+#### Boolean operation
+The Boolean operations can be encoded in R. $\&$ and $|$ mean *and* and *or*, $!$ means negative. These operations are very important to make a subset.
+```{r}
+x<-c(1:20)
+
+x1<-subset(x, (x>10) & (x==12))
+x1
+
+x2<-subset(x, (x<=5) | (x>14))
+x2
+
+gss2<-gss[gss$year==2010, ]
+
+```
+
+#### *is.XXX()* 
+##### *is.na()* and *!is.na()* is used to detect the missing values in the dataset
+```{r}
+
+sum(is.na(gss$marital))
+sum(is.na(gss$region))
+sum(is.na(gss$age))
+
+sum(is.na(gss$age[gss$region=="SOUTH ATLANTIC"]))
+
+# the missing values
+mean(gss$age[gss$region=="SOUTH ATLANTIC"], na.rm = TRUE)
+
+```
+##### *is.vectortype()* is used to check the type of the vector.
+```{r}
+is.character(state.name)
+is.numeric(gss$age)
+is.character(gss$marital)
+str(gss)
+```
+
+
+### 4) FACTOR
+The factors are used to store categorical variables with numeric data. labels + numbers. *factor()* is used to create a new factor. *is.XXX()* and *class()* are used to check specific type, *as.XXX()* is used to cast vectors to specific type.
+
+```{r}
+str(gss)
+levels(gss$region) # a factor has its own levels, labels + numbers
+
+schoolyear<-c("Freshman","Sophomore","Freshman","Sophomore","Senior","Freshman","Sophomore","Junior")
+class(schoolyear)
+is.factor(schoolyear)
+factor(schoolyear)
+is.factor(schoolyear)
+
+schoolyear_factor<-as.factor(schoolyear)
+is.factor(schoolyear_factor)
+
+levels(schoolyear_factor)  # alphabetical order by default
+
+schoolyear_number<-as.numeric(schoolyear_factor)
+schoolyear_number
+
+table(schoolyear)   # categorical variable is summarized by frequency table
+barplot(table(schoolyear)) # barplot(frequency table)
+barplot(table(schoolyear_factor))
+```
+
+#### Reorder the levels of the factor. 
+
+The original factor order is alphabetical. You can change ordering of the levels:
+```{r}
+# change ordering of the levels
+# vector<-factor(vector, levels=c("level1","level2","level3"))
+
+schoolyear_factor<-factor(schoolyear, levels = c("Freshman","Sophomore","Junior","Senior"))
+
+levels(schoolyear_factor)
+
+barplot(table(schoolyear_factor))
+```
+
+
+#### Recode a factor / Re-assign levels to a factor 
+
+Change values of a factor to NA
+```{r}
+levels(gss$happy)
+# creating a new variable by copying the original one, making changes on the new one, 
+# so that we don't change the orginial data
+
+# create a new factor
+# new vector<-factor(vector, levels=c("level1","level2","level3"))
+
+gss$happy1<-factor(gss$happy,levels=c("NOT TOO HAPPY","PRETTY HAPPY", "VERY HAPPY"))
+
+gss$happy1[gss$happy=="NOT TOO HAPPY"]<-"NOT TOO HAPPY"
+
+gss$happy1[gss$happy=="PRETTY HAPPY"]<-"PRETTY HAPPY"
+
+gss$happy1[gss$happy=="VERY HAPPY"]<-"VERY HAPPY"
+
+gss$happy1[gss$happy==" " | gss$happy=="DK"]<-NA
+
+levels(gss$happy1)
+
+barplot(table(gss$happy))
+barplot(table(gss$happy1))
+```
+
+#### Create a binary factor (shortcut *ifelse()*)
+```{r}
+gss$happy2<-factor(ifelse(gss$happy=="VERY HAPPY","HAPPY","NOT HAPPY"))
+
+summary(gss$happy)
+summary(gss$happy2)
+
+```
+
+## 6. Casting Vectors 
+__This topic will be discussed in "Working with data, part 2" next week.__
+
+## Getting help
+```{r}
+ ?hist()
+# then look for specific help by using cmd+f for Mac or ctrl+f for Windows!
+```
+
+mean("gss100")
+
+gss<-read.csv("gss.csv", stringsAsFactors = TRUE)
+

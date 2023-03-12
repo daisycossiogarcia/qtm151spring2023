@@ -1,0 +1,61 @@
+---
+title: "QTM 150: Babynames in-class exercise"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(babynames)
+library(dplyr)
+library(ggplot2)
+```
+
+
+```{r}
+str(babynames)
+head(babynames)
+```
+
+
+Q1. Babynames dataset includes ~2 million observations (NOT ~2 million names) from year 1880 to 2017. How many unique names were used in each year, and which year had the most number of unique names recorded in this dataset? Also, for the year with the most number of unique names used, how mamy of those names were used for females?
+
+```{r}
+
+```
+
+
+Q2. This dataset can also be used to examine the number of childbirths taken place each year by using variable n which describes how many times each name was used in each year. Use a time series plot (a line plot) visualizing the yearly number of childbirths. Use different colors for males and females. 
+
+```{r}
+
+```
+
+
+Q3. Back to the babynames. For each year, what are the most popular male and female names? Do this only for the first 10 years (i.e., 1880~1889) and the last 10 years included in the dataset (i.e., 2008~2017). Do you see an interesting pattern?
+
+```{r}
+
+```
+
+
+Q4. (A) What are the all-time top 10 names used to name babies? Also, (B) what are the all-time top 5 names used to name boys and the all-time top 5 names used to name girls? Describe how (A) and (B) are different.
+
+```{r}
+
+```
+
+
+Q5. What are the top 5 most popular names in the year you were born?
+
+```{r}
+
+  
+```
+
+
+Q6: Using the 5 names from Q5, visualize a trend showing the changes in the frequency of each name over the years.
+
+```{r}
+
+
+```

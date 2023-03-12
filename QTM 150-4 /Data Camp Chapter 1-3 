@@ -1,0 +1,345 @@
+# 1 Chapter Intro to basics
+
+# Calculate 3 + 4 
+3 + 4
+# Results are: {1} 7 
+
+# Calculate 6 +12
+6 + 12
+# Results are: {1} 18 
+
+# Practice 2 
+
+# An addition 
+5 + 5
+# Results are: {1} 10 
+
+# A subtraction 
+5 - 5
+# Results are: {1} 0 
+
+# A multiplication 
+3 * 5
+# Results are {1} 15
+
+# A division 
+(5 + 5) / 2
+# Results are {1} 5 
+
+# Exponentiation 
+2^5
+# Results are {1} 32
+
+# Modulo 
+28 %% 6
+# Results are {1} 4 
+
+# Practice 3 
+
+# Assign the value 42 to x 
+x <- 42
+# Results are x <- 42
+
+# Print out the value of the variable x 
+x
+# Results are {1} 42
+
+# Assign the value 5 to the variable my_apples 
+my_apples <- 5
+# Results are my_apples <- 5 
+
+# Print out the value of the variable my_apples
+my_oranges <- 6
+# Results are my_oranges <- 6 
+
+#Add these two variables together 
+my_apples + my_oranges
+# Results are {1} 11 
+
+# Create the variable my_fruit 
+my_fruit <- 11
+# Results are my_fruit <- 11 
+
+# You can't do 5 + "six" has to be numerical 
+# non-numeric argument to binary operator 
+
+my_fruit <- my_apples + my_oranges
+my_fruit
+# This worked well after I changed the my_oranges <- "six" to 6 
+
+# Decimal values like 4.5 are called numeric
+# Whole numbers like 4 are called integers. Integers are also numeric 
+# Boolean values (TRUE or FALSE) are called logical 
+# Text (or string) values are called characters
+# Note how the quotation marks in the editor indicate that "some text" is a string
+
+# Change my_numeric to be 42 
+my_numeric <- 42
+# Results are my_numeric <- 42
+
+# Change my_character to be "universe" 
+my_character <- "universe"
+# my_character <- "universe" 
+
+# Change my_logical to be FALSE 
+my_logical <- FALSE
+# my_logical <- FALSE
+
+# Check class of my_numeric 
+class(my_numeric)
+# Results are {1} "numeric"
+
+# Check class of my_character
+class (my_character)
+# Results are {1} "character" 
+
+# Check class of my_logical 
+class(my_logical)
+# Results are {1} "logical"
+
+# Chapter 2 Vectors
+
+# Define the variable vegas
+vegas <- "Go!"
+# Results are vegas <- "Go!"
+
+numeric_vector <- c(1, 10, 49)
+character_vecotr <- c("a", "b", "c")
+
+# Complete the code for boolean_vector 
+boolean_vector <- c(TRUE, FALSE, TRUE)
+# Results are boolean_vector <- c(TRUE, FALSE, TRUE)
+
+# Poker winnings from Monday to Friday
+poker_vector <- c(140, -50, 20, -120, 240)
+# Results are poker_vector <- c(140, -50, 20, -120, 240)
+
+# Roulette winnings from Monday to Friday 
+roulette_vector <- c(-24,-50, 100, -350, 10)
+# Results are roulette_vector <- c(-24, -50, 100, -350, 10)
+
+# Poker winnings from Monday to Friday 
+poker_vector <- c(140, -50, 20, -120, 240)
+# Results are poker_vector <- c(140, -50, 20, -120, 240)
+
+# Roulette winnings from Monday to Friday 
+roulette_vector <- c(-24, -50, 100, -350, 10)
+# Results are roulette_vector <- c(-24, -50, 100, -350, 10)
+
+# Assign days as names of poker_vector 
+names(poker_vector)<- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+# Results are names(poker_vector)<- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+
+# Assign days as names of roulette_vector
+names(roulette_vector) <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+# Results are names(roulette_vector) <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+
+# The variable days_vector 
+days_vector <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+# Results are days_vector <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+
+# Assign the names of the day to roulette_vector and poker_vector 
+names(poker_vector) <- days_vector
+names(roulette_vector) <- days_vector
+# Results are names(poker_vector) <- days_vector
+# Results are names(roulette_vector) <- days_vector
+
+A_vector <- c(1, 2, 3)
+B_vector <- c(4, 5, 6)
+
+# Take the sum of A_vector and B_vector
+total_vector <- A_vector + B_vector 
+# Results are total_vector <- A_vector + B_vector 
+
+# Print out total_vector 
+total_vector
+# Results are {1} 5 7 9 
+
+# Assign to total_daily how much you won/lost on each day
+total_daily <- roulette_vector + poker_vector
+# Results are total_daily <- roulette_vector + poker_vector
+
+# Total winnings with poker
+total_poker <- sum(poker_vector)
+# Results are total_poker <- sum(poker_vector)
+
+# Total winnings with roulette
+total_roulette <- sum(roulette_vector)
+# Results are total_roulette <- sum(roulette_vector)
+
+#Total winnings overall 
+total_week <- total_poker + total_roulette
+# Results are total_week <- total_poker + total_roulette
+
+# Print out total_week
+total_week
+# Results are {1} -84
+
+# Calculate total gains for poker and roulette
+total_poker <- sum(poker_vector)
+total_roulette <- sum(roulette_vector)
+
+# Check if you realized higher total gains in poker than in roulette
+total_poker > total_roulette
+# Results are {1} TRUE 
+
+# Define a new variable based on a selection 
+poker_wednesday <- "Wednesday"
+# Results are poker_wednesday <- "Wednesday"
+
+# Define a new variable based on a selection 
+poker_wednesday <- 20
+# Results are poker_wednesday <- 20
+
+#Define a new variable based on a selection 
+poker_midweek <- poker_vector [c("Tuesday", "Wednesday", "Thursday")]
+# Results are poker_midweek <- poker_vector [c("Tuesday", "Wednesday", "Thursday")]
+
+# Define a new variable based on a selection 
+roulette_selection_vector <- roulette_vector [2 : 5]
+# Results are roulette_selection_vector <- roulette_vector [2 : 5]
+
+# Select poker results for Monday, Tuesday, and Wednesday 
+poker_start  <- poker_vector [c("Monday", "Tuesday", "Wednesday")]
+#Results are poker_start  <- poker_vector [c("Monday", "Tuesday", "Wednesday")]
+
+# Calculate the average of the elements in poker_start 
+mean(poker_start)
+# Results are [1] 36.66667
+
+# Define the variable vegas 
+vegas <- "Go!"
+# Results are vegas <- "Go!"
+
+# Which days did you make money on poker?
+selection_vector <- c(140, -50, 20, -280, 240) > 0 
+# Results are selection_vector <- c(140, -50, 20, -280, 240) > 0 
+
+# Print out selection_vector 
+selection_vector
+# Results are [1]  TRUE FALSE  TRUE FALSE  TRUE
+
+#Just for me 
+c(140, -50, 20, -280, 240) > 0
+# Results are the same as before 
+
+selection_vector <- poker_vector > 0
+
+# Select from poker_vector these days 
+poker_winning_days <- poker_vector [selection_vector]
+# Results are poker_winning_days <- poker_vector [selection_vector]
+
+# Which days did you make money on roulette?
+selection_vector <- roulette_vector > 0
+# Results are selection_vector <- roulette_vector > 0
+
+# Select from roulette_vector these days 
+roulette_winning_days <- roulette_vector [selection_vector]
+# Results are roulette_winning_days <- roulette_vector [selection_vector]
+
+# Construct a matrix with 3 rows that contain the numbers q up to 9
+matrix(1:9, byrow= TRUE, nrow= 3)
+# Results are correct 
+
+# Box office Star Wars (in millions!)
+new_hope <- c(460.998, 314.4)
+empire_strikes <- c(290.475, 247.900)
+return_jedi <- c(309.306, 165.8)
+
+# Create box_office 
+box_office <- c(new_hope, empire_strikes, return_jedi )
+# Results are box_office <- c(new_hope, empire_strikes, return_jedi )
+
+# Construct star_wars_matrix
+star_wars_matrix <- matrix(box_office, byrow= TRUE, nrow=3)
+# Results are star_wars_matrix <- matrix(box_office, byrow= TRUE, nrow=3)
+
+# Vectors region and titles, used for naming 
+region <- c("US", "non-US")
+titles <- c ("A New Hope", "The Empire Stricks Back", "Return of the Jedi")
+# Results seem correct 
+
+# Name of the columns with region
+colnames(star_wars_matrix) <- region
+# Results are colnames(star_wars_matrix) <- region
+
+# Name the rows with titles
+rownames(star_wars_matrix) <- titles 
+# Results are rownames(star_wars_matrix) <- titles 
+
+# Print out star_wars_matrix
+star_wars_matrix
+# Results look correct 
+
+star_wars_matrix <- matrix(box_office, nrow=3, byrow = TRUE, dimnames = list(titles, region))
+# Looks right but what's up with the dimnames? 
+
+# Calculate worldwide box office figures 
+worldwide_vector <- rowSums(star_wars_matrix)
+# Results are worldwide_vector <- rowSums(star_wars_matrix)
+
+worldwide_vector
+# Results look right
+
+# Bind the new variable worldwide_vector as a column to star_wars_matrix
+all_wars_matrix <- cbind(star_wars_matrix, worldwide_vector)
+# Results are all_wars_matrix <- cbind(star_wars_matrix, worldwide_vector)
+
+# star_wars_matrix and star_wars_matrix2 are available in your workspace
+star_wars_matrix
+star_wars_matrix2
+# don't have that date quiet yet 
+
+# Combine both Star Wars trilogies in one matrix
+all_wars_matrix <- rbind(star_wars_matrix, star_wars_matrix2)
+# Don't have have the star_wars_matrix2 
+
+# all_wars_matrix is available in your workspace 
+all_wars_matrix
+# Looks right 
+
+# Total revenue for US and non-US
+total_revenue_vector <-  colSums(all_wars_matrix)
+# Results are total_revenue_vector <-  colSums(all_wars_matrix)
+
+# Print out total_revenue_vector
+total_revenue_vector
+
+# all_wars_matrix is available in your workspace
+all_wars_matrix
+# Results are good 
+
+# Select the non-US revenue for all movies
+non_us_all <- all_wars_matrix [,2]
+# Results are non_us_all <- all_wars_matrix [,2]
+
+# Average non-US revenue 
+mean(non_us_all)
+# Results are [1] 242.7
+
+# Select the non-US revenue for the first two movie 
+non_us_some <- all_wars_matrix [1:2,2]
+# Results are non_us_some <- all_wars_matrix [1:2,2]
+
+# Average non-US revenue for first two movie 
+mean(non_us_some)
+# Results are [1] 281.15
+
+#Estimate the visitors 
+visitors <- all_wars_matrix / 5 
+# Results are visitors <- all_wars_matrix / 5 
+
+# Print the estimate to the console 
+visitors
+
+# Estimated number of visitors 
+visitors <- all_wars_matrix / ticket_prices_matrix
+# Error message because we don't have ticket_prices_matrix 
+
+# US visitors 
+us_visitors <- visitors [,1]
+
+# Average number of US visitors 
+mean(us_visitors)
+# Results are [1] 70.7186
+

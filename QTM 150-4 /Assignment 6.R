@@ -1,0 +1,51 @@
+# Assignment 6: For babynames, find top 5 popular names shared by female and male each year.
+
+library(dplyr)
+library(babynames)
+
+babynames %>%
+  group_by(year, sex, name) %>%
+  summarise(total= sum(n)) %>%
+  top_n(5)
+
+male_names <- babynames %>%
+  filter(sex=="M") %>%
+  group_by(name) %>%
+  select(year, name, n)
+
+male_names
+
+female_names <- babynames %>%
+  filter(sex=="F") %>%
+  group_by(name) %>%
+  select(year, name, n)
+
+female_names
+
+unisex_names <- inner_join(male_names, female_names, by=c("name", "year")) %>%
+  mutate (total = n.x + n.y) %>%
+  group_by(year) %>%
+  top_n(5)
+
+unisex_names # These don't feel very unisex, put because they are the top 5 shared names between both females and males they show up at the top 5 unisex names
+
+# Extra Practice 
+
+# What are the top 5 boys names for 2017, and what percent of overall names is each?
+babynames%>%
+  filter(sex=="M",year=="2017")%>%
+  top_n(5)
+
+# Find the most common name in each year
+babynames %>%
+  group_by(year) %>%
+  top_n(1, n)
+
+# Find the year each name is most common 
+babynames %>%
+  group_by(year) %>%
+  mutate(year_total = sum(n)) %>%
+  ungroup() %>%
+  mutate(fraction = n / year_total)%>%
+  group_by(name)%>%
+  top_n(1, fraction)
