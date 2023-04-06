@@ -40,6 +40,7 @@ Create table from codebook/dictionary
 -- SQL does not allow you to create a table if one already exists
 DROP TABLE IF EXISTS us_congress_members;
 
+
 -- Note in SQL the codebook is also called a "dictionary"
 -- The option PRIMARY KEY indicates that this is the unique identifier
 CREATE TABLE us_congress_members (
@@ -47,9 +48,9 @@ CREATE TABLE us_congress_members (
         full_name    varchar(30),
         last_name    varchar(30),
         member_title varchar(30),
-        state        varchar(30),
+        state       varchar(30),
         party_name   varchar(30),
-        chamber      varchar(30)
+        chamber      varchar(30),
 );
 -- SQLBook: Code
 -- (i) The NOT NULL option is a special restrition saying
@@ -85,7 +86,9 @@ Try it yourself!
 - Create a new table for "bills_subjects"
 -- SQLBook: Code
 -- Write your own code
+DROP TABLE IF EXISTS bills_subjects;
 
+<<<<<<< Updated upstream
 DROP TABLE IF exists bills_subjects;
 
 CREATE TABLE bills_subjects(
@@ -94,6 +97,12 @@ CREATE TABLE bills_subjects(
     bill_type varchar(30),
     bill_subject varchar(30)
 )
+=======
+CREATE TABLE bills_subjects (
+);
+
+-- You can create an empty table 
+>>>>>>> Stashed changes
 
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Import CSV into SQL </span>
