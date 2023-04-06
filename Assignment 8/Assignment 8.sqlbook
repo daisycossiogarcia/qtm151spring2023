@@ -1,0 +1,170 @@
+-- SQLBook: Markup
+# Assignment 8
+-- SQLBook: Markup
+## Submit this file. No need to convert to HTML
+-- SQLBook: Markup
+<font size = "5">
+Print your name below
+-- SQLBook: Code
+--Daisy Cossio Garcia 
+-- SQLBook: Markup
+
+<font size = "5">
+
+(a) Import "lap_times" data from CSV.
+
+$\quad$ <img src="figures/codebook_lap_times.png" alt="drawing" width="300"/>
+
+<font size = "3">
+
+- Run the command ``` DROP TABLE IF EXISTS results; ```
+- Use the command ```CREATE TABLE results (... ) ``` to create an <br>
+empty table with the headers of the "lap_times" table, using the information in <br>
+the image and following the instructions in Lecture 18.
+- Use the the command ``` COPY ``` to import the rows <br>
+of "data_raw/lap_times.csv"
+
+HINT: Remember that you have to find the pathname of the <br>
+".csv" file. See Lecture 18 for details
+
+HINT: Include any column names with upper case in doube quotations, <br> e.g.
+"raceId". If you don't you'll get an error
+-- SQLBook: Code
+-- Write your own code
+DROP TABLE IF EXISTS lap_times;
+
+CREATE TABLE lap_times(
+    "raceId" int,
+    "driverId" int,
+    lap int,
+    position int,
+    time varchar(255),
+    milliseconds int
+);    
+
+COPY lap_times 
+FROM '/private/tmp/data_raw copy/lap_times.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH)
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(b) Import "drivers" data from CSV.
+
+<font size = "3">
+$\quad$ <img src="figures/codebook_drivers.png" alt="drawing" width="300"/>
+
+- Repeat part (a) but this time create a table "drivers" <br>
+and  import the data from "data_raw/drivers.csv" 
+
+-- SQLBook: Code
+-- Write your own code
+DROP TABLE IF EXISTS drivers;
+
+CREATE TABLE drivers(
+    "driverId" int,
+    "driverRef" varchar (255),
+    number varchar (255),
+    code varchar (3),
+    forename varchar (255),
+    surname varchar (255),
+    dob varchar (255),
+    nationality varchar (255),
+    url varchar (255)
+);    
+
+COPY drivers 
+FROM '/private/tmp/data_raw copy/drivers.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH)
+
+
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(c) Subset and sort
+
+<font size = "3">
+
+- Use ```WHERE``` to get a subset of "drivers" with 
+```nationality = 'American'```
+- Chain this with ```ORDER BY surname ASC``` to sort in <br>
+ascending order
+
+Hints:
+- Remember to start the chain with ```SELECT * FROM drivers```
+- In SQL you only need a single equality "="
+- In SQL use single quotes for logical conditions with strings '...'
+
+
+-- SQLBook: Code
+-- Write your own code
+SELECT * FROM drivers
+WHERE nationality = 'American'
+ORDER BY surname ASC;
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(e) Count unique values
+
+<font size = "3">
+
+- Count the number of unique "driverId" using ```COUNT(DISTINCT ...)``` <br>
+from the dataset "drivers"
+
+HINT: See the lecture 18 for details
+HINT: Include "driverId" in quotations since it has a mix of <br>
+upper case and lower case letters
+-- SQLBook: Code
+-- Write your own code
+SELECT COUNT(DISTINCT "driverId") AS num_distinct_driverid 
+FROM drivers
+
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(d) Groupby + Aggregate + Sort
+
+<font size = "3">
+
+- Obtain the average of "milliseconds" by "driverId" using ```GROUP BY```
+- User ```ORDER BY ``` to sort on the sum of points
+
+HINT: See the end of lectures 17 and 18 for details <br>
+HINT: Include "driverId" in quotations since it has a mix of <br>
+upper case and lower case letters
+-- SQLBook: Code
+-- Write your own code
+SELECT "driverId",
+       AVG(milliseconds) AS mean_milliseconds
+FROM lap_times
+GROUP BY "driverId"
+ORDER BY mean_milliseconds ASC;
+
+-- SQLBook: Markup
+<font size = "5">
+
+(f) Merge two tables
+
+<font size = "3">
+
+- Merge the tables "lap_times" (primary) and "drivers" (secondary) <br>
+on "driverId" using ```LEFT JOIN``` with the option <br>
+```ON lap_times."driverId"  = drivers."driverId"```
+
+HINT: See the lecture 18 for details <br>
+HINT: Include "driverId" in quotations since it has a mix of <br>
+upper case and lower case letters
+-- SQLBook: Code
+-- Write your own code
+SELECT * 
+FROM lap_times
+LEFT JOIN drivers
+ON lap_times."driverId"  = drivers."driverId";
+

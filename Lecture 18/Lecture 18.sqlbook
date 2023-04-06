@@ -144,6 +144,20 @@ additional ".sqlbooks" in this folder
 -- You just have to change the FROM argument
 
 
+DROP TABLE IF EXISTS us_congress_members;
+CREATE TABLE us_congress_members (
+        member_id    int PRIMARY KEY,
+        full_name    varchar(30),
+        last_name    varchar(30),
+        member_title varchar(30),
+        state        varchar(30),
+        party_name   varchar(30),
+        chamber      varchar(30)
+);
+COPY us_congress_members 
+FROM '/private/tmp/data copy/us_congress_members.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH)
+
 
 
 
@@ -161,6 +175,7 @@ SELECT * FROM us_congress_members
 ```
 -- SQLBook: Code
 -- Write your own code
+SELECT * FROM us_congress_members
 
 
 
@@ -184,6 +199,20 @@ SELECT * FROM bills_actions
 -- FROM '/private/tmp/data/bills_actions.csv'
 -- WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
+DROP TABLE IF EXISTS bills_actions;
+
+CREATE TABLE bills_actions (
+        "Congress"  int NOT NULL,
+        bill_number int ,
+        bill_type   varchar(30),
+        action      varchar(1000),
+        main_action varchar(50),
+        object      varchar(30),
+        member_id   int
+);
+COPY bills_actions
+FROM '/private/tmp/data copy/bills_actions.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH)
 
 
 

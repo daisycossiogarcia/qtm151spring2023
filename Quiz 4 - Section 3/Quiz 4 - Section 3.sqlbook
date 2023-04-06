@@ -1,0 +1,184 @@
+-- SQLBook: Markup
+# Quiz 4
+-- SQLBook: Markup
+## Submit this file. No need to convert to HTML
+-- SQLBook: Markup
+<font size = "5">
+Write your name as a comment (use double dash)
+-- SQLBook: Code
+-- Daisy Cossio Garcia 
+-- SQLBook: Markup
+<font size = "5" >
+This quiz is open book 
+
+- You can use the lecture notes
+- You will get partial credit for attempting the questions
+- To get full credit, the code should run as intended
+- You should <span style="color:red"> NOT </span> communicate with other students
+
+Write the following message as a comment: <br>
+
+"I will abide by Emory's code of conduct"
+
+-- SQLBook: Code
+-- I will abide by Emory's code of conduct
+-- SQLBook: Markup
+
+<font size = "5">
+
+(a) Create an empty table for "pit_stops"
+
+$\quad$ <img src="figures/pit_stops_codebook.png" alt="drawing" width="300"/>
+
+<font size = "3">
+
+- Run the command ``` DROP TABLE IF EXISTS pit_stops; ```
+- Use the command ```CREATE TABLE pit_stops (... ) ``` to create an <br>
+empty table with the headers of the table, using the information in <br>
+the image and following the instructions in Lecture 18.
+
+HINT: Include any column names with upper case in doube quotations, <br> e.g.
+"raceId". If you don't you'll get an error
+-- SQLBook: Code
+-- Write your own code
+DROP TABLE if EXISTS pit_stops;
+CREATE TABLE pit_stops(
+    "raceId" int,
+    "driverId" int,
+    stop int,
+    lap int,
+    time varchar(255),
+    duration varchar(255),
+    milliseconds int
+);
+
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(b) Use the the command ``` COPY ``` to import the rows <br>
+of "data_raw/pit_stops.csv"
+
+<font size = "3">
+
+HINT: Remember that you have to find the pathname of the <br>
+".csv" file. See Lecture 18 for details. See the additional <br>
+lectures for how to handle the permissions. <br>
+
+(Optional note): If you are importing the data through the SQL terminal <br>
+(rather than through the notebook), please include the code <br>
+you are running and add a comment that you used the terminal
+-- SQLBook: Code
+-- Write your own code
+COPY pit_stops
+FROM '/private/tmp/data_raw copy/pit_stops.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
+-- Used terminal 
+SELECT * FROM pit_stops
+
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(c) Subset and sort
+
+<font size = "3">
+
+- SELECT all the columns FROM the pit_stops dataset
+- Then subset rows with 1 $\le$ lap $\le$ 5 using <br>
+ ``` WHERE ```
+- Then sort the datasets in ascending order of <br>
+"milliseconds"
+
+HINT: Remember to always refer to column names with at <br>
+least one capital letter with double quotations, e.g. "driverId" <br>
+HINT: See Lecture 17
+-- SQLBook: Code
+-- Write your own code
+SELECT * FROM pit_stops
+WHERE (lap = 1) OR  (lap = 2) OR (lap = 3) OR (lap = 4) OR (lap = 5)
+ORDER BY milliseconds ASC;
+
+
+
+
+-- SQLBook: Markup
+<font size = "5">
+
+(d) Groupby + Aggregate
+
+
+<font size = "3">
+
+- Compute the minimum and the maximum "milliseconds", <br>
+grouped by "driverId" using SELECT, FROM, and GROUP BY.
+
+
+HINT: See the end of lectures 17
+-- SQLBook: Code
+-- Write your own code
+
+SELECT MIN(milliseconds) AS min_milliseconds,
+       MAX(milliseconds) AS max_milliseconds
+FROM pit_stops
+GROUP BY "driverId"
+
+
+
+-- SQLBook: Markup
+
+<font size = "5">
+
+(e) Groupby + Aggregate + Sort
+
+<font size = "3">
+
+- Select the "driverId" column and count the total <br>
+number of rows by "driverId" ```GROUP BY``` <br>
+ - Then sort by the count of the rows using ```ORDER BY``` <br>
+ in descending order
+
+HINT: Remember to include "driverId" in double <br>
+quotations it includes a mix of lower case and upper case letters
+-- SQLBook: Code
+-- Write your own code
+
+SELECT "driverId",
+       COUNT( DISTINCT "driverId") AS "distinct_driverId"
+FROM pit_stops
+       GROUP BY "driverId"
+       ORDER BY distinct_driverId DESC;
+
+
+-- SQLBook: Markup
+
+<font size = "5">
+
+(e) Groupby + Aggregate + Subset
+
+<font size = "3">
+
+- Select the "driverId" and count the total <br>
+number of rows by "driverId" ```GROUP BY``` <br>
+ - Then subset drivers with strictly more than 200 rows <br>
+ using ```HAVING ```
+-- SQLBook: Code
+-- Write your own code
+SELECT "driverId",
+       COUNT (DISTINCT "driverId") AS distinct_driverid
+       FROM pit_stops
+       GROUP BY "driverId"
+       HAVING COUNT (DISTINCT "driverId") > 200;
+
+
+-- SQLBook: Code
+
+-- BASIC SYNTAX OF SQL:
+
+-- Commands separated by a semicolon ";"
+-- Commands in upper case, inputs lower case
+-- Include comments with two dashes "--"
+-- Arguments in parenthesis, separated by a comma ","
+-- For strings, use single quotations '...', not double "...".
